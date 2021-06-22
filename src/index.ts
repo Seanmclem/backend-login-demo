@@ -1,5 +1,6 @@
 import express, { Router } from "express";
 import cors from "cors";
+import fs from "fs";
 
 const app = express();
 
@@ -10,23 +11,18 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.listen(3000, () => {
-  console.log("Server running on port 3000 ~~~");
+app.listen(3100, () => {
+  console.log("Server running on port 3100 ~~~");
 });
 
 const router = Router();
 
-// app.get("/api-1", async (req, res, next) => {
-//   if (tokenResult?.success) {
-//     console.log(`TOKEN:`, "SUCCESS");
-//   } else {
-//     console.error("FAILED to get Braintree token, Sean");
-//   }
+app.get("/users", async (req, res, next) => {
+  let rawdata = fs.readFileSync("server/users.json");
+  let users = JSON.parse(rawdata as any);
 
-//   res.json({
-//     token: tokenResult?.clientToken,
-//   });
-// });
+  res.json(users);
+});
 
 // router.post('/user', checkIfAuthenticated, async (req, res) => {
 //   return UserController.insert(req, res);

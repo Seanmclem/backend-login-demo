@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "address": "6811 North 18th Street",
+      "clientid": "3333",
+      "email": "seanmclefffffments@gmail.com",
+      "firstname": "Sean",
+      "lastname": "Clements",
+      "phone": "555-5555",
+      "role": "user"
+    },
+    {
+      "address": "123 fake st",
+      "clientid": "3333",
+      "email": "simpson@gmail.com",
+      "firstname": "Bart",
+      "lastname": "Simpson",
+      "phone": "555-5555",
+      "role": "user"
+    }
+  ]
+}

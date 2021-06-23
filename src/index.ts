@@ -3,6 +3,7 @@ import cors from "cors";
 import fs from "fs";
 
 export interface User {
+  objectId: string;
   address: string;
   clientid: string;
   email: string;
@@ -25,7 +26,7 @@ app.listen(3100, () => {
   console.log("Server running on port 3100 ~~~");
 });
 
-const router = Router();
+// const router = Router();
 
 app.get("/login", async (req, res, next) => {
   // const { email } = req.body;
@@ -40,13 +41,36 @@ app.get("/login", async (req, res, next) => {
 
 app.post("/users", async (req, res, next) => {
   const { email } = req.body;
-  console.log(req.body);
+  const { search } = req.query as any;
+  const { id } = req.query as any;
+  console.log(req.params);
+
   let rawdata = fs.readFileSync("server/users.json");
   let data: { users: User[] } = JSON.parse(rawdata as any);
   const user = data?.users.find((u) => u.email === email);
-  const users = getUsersForRole(data?.users, user);
+  const allUsers = getUsersForRole(data?.users, user);
+  const users = search || id ? searchUsers(allUsers, search, id) : allUsers;
   res.json({ users });
 });
+
+const searchUsers = (users: User[], query: string, id: string) => {
+  if (query) {
+    return users.filter((u) => {
+      const uFirst = u.firstname.toLowerCase();
+      const uLast = u.lastname.toLowerCase();
+      const uEmail = u.email.toLowerCase();
+      return (
+        uFirst.includes(query) ||
+        uLast.includes(query) ||
+        uEmail.includes(query)
+      );
+    });
+  } else if (id) {
+    return users.find((u) => u.objectId === id);
+  } else {
+    return users;
+  }
+};
 
 const getUsersForRole = (users: User[], user?: User) => {
   switch (user?.role) {

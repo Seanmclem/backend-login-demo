@@ -2,8 +2,8 @@
   "users": [
     {
       "address": "6811 North 18th Street",
-      "clientid": "3333",
-      "email": "seanmclefffffments@gmail.com",
+      "clientid": "0000",
+      "email": "user@gmail.com",
       "firstname": "Sean",
       "lastname": "Clements",
       "phone": "555-5555",
@@ -12,11 +12,29 @@
     {
       "address": "123 fake st",
       "clientid": "3333",
-      "email": "simpson@gmail.com",
+      "email": "client2@gmail.com",
+      "firstname": "client2",
+      "lastname": "Simpson",
+      "phone": "555-5555",
+      "role": "client"
+    },
+    {
+      "address": "123 fake st",
+      "clientid": "3333",
+      "email": "client@gmail.com",
       "firstname": "Bart",
       "lastname": "Simpson",
       "phone": "555-5555",
-      "role": "user"
+      "role": "client"
+    },
+    {
+      "address": "20 depot rd",
+      "clientid": "999999",
+      "email": "admin@gmail.com",
+      "firstname": "Bart",
+      "lastname": "Simpson",
+      "phone": "555-5555",
+      "role": "admin"
     }
   ]
 }

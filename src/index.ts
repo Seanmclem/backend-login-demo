@@ -23,8 +23,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.listen(3100, () => {
-  console.log("Server running on port 3100 ~~~");
+app.listen(process.env.PORT || 3100, () => {
+  console.log(`Server running on port ${process.env.PORT || "3100"} ~~~`);
 });
 
 // const router = Router();

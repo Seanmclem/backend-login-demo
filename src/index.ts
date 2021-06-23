@@ -1,6 +1,7 @@
 import express, { Router } from "express";
 import cors from "cors";
 import fs from "fs";
+import { v4 as uuid } from "uuid";
 
 export interface User {
   objectId: string;
@@ -39,15 +40,45 @@ app.get("/login", async (req, res, next) => {
   res.send(user ? { user: user } : {});
 });
 
+app.post("/users/create", async (req, res, next) => {
+  const { newUser } = req.body;
+  const { creator } = req.body;
+
+  newUser.objectId = uuid();
+
+  // console.log(newUser);
+  let rawdata = fs.readFileSync("server/users.json");
+  // res.json({ ok: "ok" });
+  let data: { users: User[] } = JSON.parse(rawdata as any);
+  const existingUser = data?.users.find((u) => u.email === newUser.email);
+  // if the user does not exist and they are not role user, or they're a clietn with the same client ID
+  if (
+    (!existingUser && creator?.role === "user") ||
+    (!existingUser &&
+      creator?.role === "client" &&
+      creator?.clientid !== newUser?.clientid)
+  ) {
+    data.users.push(newUser);
+    const newData = JSON.stringify(data);
+    fs.writeFileSync("server/users.json", newData);
+    const allowedUsers = getUsersForRole(data.users, creator);
+    res.json({ users: allowedUsers, newUser });
+  } else {
+    const allowedUsers = getUsersForRole(data.users, creator);
+    res.json({ users: allowedUsers, newUser: existingUser });
+  }
+});
+
 app.post("/users", async (req, res, next) => {
-  const { email } = req.body;
+  const { email } = req.body; // of the requestor
   const { search } = req.query as any;
   const { id } = req.query as any;
-  console.log(req.params);
+  // console.log(req.params);
 
   let rawdata = fs.readFileSync("server/users.json");
   let data: { users: User[] } = JSON.parse(rawdata as any);
   const user = data?.users.find((u) => u.email === email);
+  console.log(req.body);
   const allUsers = getUsersForRole(data?.users, user);
   const users = search || id ? searchUsers(allUsers, search, id) : allUsers;
   res.json({ users });

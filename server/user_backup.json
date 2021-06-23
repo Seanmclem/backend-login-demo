@@ -1,0 +1,44 @@
+{
+  "users": [
+    {
+      "objectId": "54tg54y5665",
+      "address": "6811 North 18th Street",
+      "clientid": "0000",
+      "email": "user@gmail.com",
+      "firstname": "Sean",
+      "lastname": "Clements",
+      "phone": "555-5555",
+      "role": "user"
+    },
+    {
+      "objectId": "l98k7j6h5g4",
+      "address": "123 fake st",
+      "clientid": "3333",
+      "email": "client2@gmail.com",
+      "firstname": "client2",
+      "lastname": "Simpson",
+      "phone": "555-5555",
+      "role": "client"
+    },
+    {
+      "objectId": "3f45ghj78j",
+      "address": "123 fake st",
+      "clientid": "3333",
+      "email": "client@gmail.com",
+      "firstname": "Bart",
+      "lastname": "Simpson",
+      "phone": "555-5555",
+      "role": "client"
+    },
+    {
+      "objectId": "g54g4g45g45",
+      "address": "20 depot rd",
+      "clientid": "999999",
+      "email": "admin@gmail.com",
+      "firstname": "Bart",
+      "lastname": "Simpson",
+      "phone": "555-5555",
+      "role": "admin"
+    }
+  ]
+}
